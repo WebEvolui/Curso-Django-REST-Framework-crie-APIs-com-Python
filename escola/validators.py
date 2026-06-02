@@ -1,7 +1,9 @@
 import re
+from validate_docbr import CPF 
 
-def cpf_invalido(cpf):
-    return len(cpf) != 11
+def cpf_invalido(value):
+    cpf = CPF()
+    return not cpf.validate(value)
 
 def nome_invalido(nome):
     return not nome.isalpha()
