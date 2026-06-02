@@ -5,8 +5,8 @@ from django.core.validators import MinLengthValidator
 class Estudante(models.Model):
     nome = models.CharField(max_length=100)
     email = models.EmailField(blank=False, max_length=100, unique=True)
-    cpf = models.CharField(max_length=11, unique=True)
-    data_nascimento = models.DateField()
+    cpf = models.CharField(max_length=11, unique=True, null=True, blank=True)
+    data_nascimento = models.DateField(null=True, blank=True)
     celular = models.CharField(max_length=14)
 
     def __str__(self):
