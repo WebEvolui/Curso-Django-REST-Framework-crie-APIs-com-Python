@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 
 class EstudanteViewSet(viewsets.ModelViewSet):
-    queryset = Estudante.objects.all()
+    queryset = Estudante.objects.all().order_by('id')
     # serializer_class = EstudanteSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = ['nome']
@@ -17,11 +17,11 @@ class EstudanteViewSet(viewsets.ModelViewSet):
         return EstudanteSerializer
 
 class CursoViewSet(viewsets.ModelViewSet):
-    queryset = Curso.objects.all()
+    queryset = Curso.objects.all().order_by('id')
     serializer_class = CursoSerializer
 
 class MatriculaViewSet(viewsets.ModelViewSet):
-    queryset = Matricula.objects.all()
+    queryset = Matricula.objects.all().order_by('id')
     serializer_class = MatriculaSerializer
     
 class ListaMatriculaEstudante(generics.ListAPIView):    
