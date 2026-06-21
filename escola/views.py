@@ -16,15 +16,22 @@ from escola.throttle import MatriculaUserRateThrottle
 
 class EstudanteViewSet(viewsets.ModelViewSet):
     """
-    Descrição da View:
-    - Gerencia os estudantes da escola.
-    Parâmetros:
-    - id (int): O identificador primário do estudante. Deve ser um número inteiro.
-    - nome (str): O nome do estudante. Deve ser uma string.
-    - email (str): O email do estudante. Deve ser uma string única e válida.
-    - cpf (str): O CPF do estudante. Deve ser uma string única.
-    - data_nascimento (date): A data de nascimento do estudante. Deve ser uma data válida.
-    - celular (str): O número de celular do estudante. Deve ser uma string.
+    Descrição da ViewSet:
+    - Endpoint para CRUD de estudantes.
+
+    Campos de ordenação:
+    - nome: permite ordenar os resultados por nome.
+
+    Campos de pesquisa:
+    - nome: permite pesquisar os resultados por nome.
+    - cpf: permite pesquisar os resultados por CPF.
+
+    Métodos HTTP Permitidos:
+    - GET, POST, PUT, PATCH, DELETE
+
+    Classe de Serializer:
+    - EstudanteSerializer: usado para serialização e desserialização de dados.
+    - Se a versão da API for 'v2', usa EstudanteSerializerV2.
     """
     
     queryset = Estudante.objects.all().order_by("id")
@@ -45,12 +52,11 @@ class EstudanteViewSet(viewsets.ModelViewSet):
 
 class CursoViewSet(viewsets.ModelViewSet):
     """
-    Descrição da View:
-    - Gerencia os cursos disponíveis na escola.
-    Parâmetros:
-    - id (str): O identificador primário do curso. Deve ser uma string única.
-    - nome (str): O nome do curso. Deve ser uma string.
-    - nível (str): O nível do curso. Deve ser uma string, podendo ser "B" para Básico, "I" para Intermediário ou "A" para Avançado.
+    Descrição da ViewSet:
+    - Endpoint para CRUD de cursos.
+
+    Métodos HTTP Permitidos:
+    - GET, POST, PUT, PATCH, DELETE
     """
 
     queryset = Curso.objects.all().order_by("id")
@@ -60,19 +66,15 @@ class CursoViewSet(viewsets.ModelViewSet):
 
 class MatriculaViewSet(viewsets.ModelViewSet):
     """
-    Descrição da View:
-    - Gerencia as matrículas dos estudantes nos cursos.
-    Parâmetros:
-    - id (int): O identificador primário da matrícula. Deve ser um número inteiro.
-    - estudante (int): O identificador do estudante associado à matrícula. Deve ser um número inteiro que corresponde a um estudante existente.
-    - curso (int): O identificador do curso associado à matrícula. Deve ser um número inteiro que corresponde a um curso existente.
-    - período (str): O período da matrícula. Deve ser uma string, podendo ser "M" para Matutino, "V" para Vespertino ou "N" para Noturno.
-    
-    Restrições:
-    - Um estudante não pode se matricular no mesmo curso mais de uma vez. A combinação de estudante e curso deve ser única.
-    
-    Trhottling:
-    - Limite de 5 requisições por minuto para cada usuário autenticado.
+    Descrição da ViewSet:
+    - Endpoint para CRUD de matrículas.
+
+    Métodos HTTP Permitidos:
+    - GET, POST
+
+    Throttle Classes:
+    - MatriculaAnonRateThrottle: limite de taxa para usuários anônimos.
+    - UserRateThrottle: limite de taxa para usuários autenticados.
     """
 
     queryset = Matricula.objects.all().order_by("id")
@@ -83,7 +85,7 @@ class MatriculaViewSet(viewsets.ModelViewSet):
 
 
 class ListaMatriculaEstudante(generics.ListAPIView):
-    """
+    """ 	
     Descrição da View:
     - Lista Matriculas por id de Estudante
     Parâmetros:
