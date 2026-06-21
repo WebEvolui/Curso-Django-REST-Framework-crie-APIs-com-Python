@@ -28,6 +28,7 @@ class MatriculaViewSet(viewsets.ModelViewSet):
     serializer_class = MatriculaSerializer
     throttle_classes = [MatriculaUserRateThrottle]
     permission_classes = [DjangoModelPermissionsWithView]
+    http_method_names = ['get', 'post']
     
 class ListaMatriculaEstudante(generics.ListAPIView):    
     def get_queryset(self):
