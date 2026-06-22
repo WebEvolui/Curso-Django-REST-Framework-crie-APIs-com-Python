@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Garante que a pasta do banco de dados existe
+mkdir -p /app/data
+
 # Apply database migrations
 echo "Running database migrations..."
 python manage.py migrate --noinput
@@ -16,7 +19,6 @@ if [[ -n "$DJANGO_SUPERUSER_USERNAME" && -n "$DJANGO_SUPERUSER_PASSWORD" ]]; the
         --username "$DJANGO_SUPERUSER_USERNAME" \
         --email "${DJANGO_SUPERUSER_EMAIL:-admin@example.com}" 2>/dev/null || echo "Superuser already exists, skipping..."
     
-    # Set password (since --noinput generates a random password)
     python manage.py shell -c "
 from django.contrib.auth import get_user_model
 User = get_user_model()
