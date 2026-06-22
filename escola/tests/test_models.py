@@ -61,6 +61,6 @@ class MatriculaTestCase(TestCase):
     def test_verificar_matricula(self):
         """Teste para verificar se a matrícula foi criada corretamente."""
         
-        self.assertEqual(self.matricula.estudante, self.estudante)
-        self.assertEqual(self.matricula.curso, self.curso)
+        self.assertEqual(self.matricula.estudante.nome, "João da Silva")
+        self.assertEqual(self.matricula.curso.descricao, "Evolui.dev - Cursos")
         self.assertEqual(self.matricula.periodo, "M")   
