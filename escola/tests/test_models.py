@@ -2,7 +2,7 @@ from django.test import TestCase
 from escola.models import Curso, Estudante, Matricula
 
 
-class EstudanteTestCase(TestCase):
+class ModelEstudanteTestCase(TestCase):
     def setUp(self):
         self.estudante = Estudante.objects.create(
             nome="João da Silva",
@@ -22,7 +22,7 @@ class EstudanteTestCase(TestCase):
         self.assertEqual(self.estudante.celular, "11 99999-9999")
         
         
-class CursoTestCase(TestCase):
+class ModelCursoTestCase(TestCase):
     def setUp(self):
         self.curso = Curso.objects.create(
             codigo="CS101",
@@ -38,7 +38,7 @@ class CursoTestCase(TestCase):
         self.assertEqual(self.curso.nivel, "B")
         
 
-class MatriculaTestCase(TestCase):
+class ModelMatriculaTestCase(TestCase):
     def setUp(self):
         self.estudante = Estudante.objects.create(
             nome="João da Silva",
