@@ -12,25 +12,27 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env_path = BASE_DIR / ".env"
+if env_path.exists():
+    load_dotenv(env_path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
-    "SECRET_KEY",
-    "django-insecure-o9a=zi1xx+eq#g_8u7&v5$jfldk8p)au$8u+0_^r(br$a*b&gh"
+    "SECRET_KEY", "django-insecure-o9a=zi1xx+eq#g_8u7&v5$jfldk8p)au$8u+0_^r(br$a*b&gh"
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
-
 
 # Application definition
 
@@ -163,6 +165,5 @@ STORAGES = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = os.environ.get(
-    "CORS_ALLOWED_ORIGINS",
-    "http://localhost:8042,http://127.0.0.1:8042"
+    "CORS_ALLOWED_ORIGINS", "http://localhost:8042,http://127.0.0.1:8042"
 ).split(",")
