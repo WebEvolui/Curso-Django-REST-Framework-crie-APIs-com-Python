@@ -74,7 +74,7 @@ docker compose logs -f
 docker ps
 
 # Testar a API
-curl http://localhost:8000/api/v1/
+curl http://localhost:8000/v1/
 
 # Ver logs novamente se precisar
 docker compose logs

@@ -4,16 +4,7 @@ services:
     container_name: api-escola
     ports:
       - "8000:8000"
-    environment:
-      - DEBUG=False
-      - SECRET_KEY=django-insecure-o9a=zi1xx+eq#g_8u7&v5$jfldk8p)au$8u+0_^r(br$a*b&gh
-      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
-      - CORS_ALLOWED_ORIGINS=http://localhost:8042,http://127.0.0.1:8042
-      - DJANGO_SUPERUSER_USERNAME=admin
-      - DJANGO_SUPERUSER_PASSWORD=admin123
-      - DJANGO_SUPERUSER_EMAIL=admin@example.com
+    env_file:
+      - .env
     volumes:
-      - sqlite_data:/app/db.sqlite3
-
-volumes:
-  sqlite_data:
+      - ./data/db.sqlite3:/app/db.sqlite3
