@@ -61,4 +61,19 @@ class MatriculasTestCase(APITestCase):
         self.assertEqual(Matricula.objects.count(), 2)
         self.assertEqual(Matricula.objects.get(pk=2).estudante.nome, "João")    
         self.assertEqual(Matricula.objects.get(pk=2).curso.codigo, self.curso_2.codigo)
+        
+    def test_delete_matricula(self):
+        """Testa se a exclusão de uma matrícula retorna o status code 204 No Content."""
+        response = self.client.delete(f"{self.url}1/")
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+        
+    def test_put_matricula(self):
+        """Testa se a atualização de uma matrícula retorna o status code 405 Method Not Allowed."""
+        data = {
+            "estudante": self.estudante.id,
+            "curso": self.curso.id,
+            "periodo": "V"
+        }
+        response = self.client.put(f"{self.url}1/", data=data)
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
     

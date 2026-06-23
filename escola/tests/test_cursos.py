@@ -43,3 +43,19 @@ class CursosTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Curso.objects.count(), 2)
         self.assertEqual(Curso.objects.get(pk=2).codigo, "CS102")
+    
+    def test_delete_curso(self):
+        """Testa se a exclusão de um curso retorna o status code 204 No Content."""
+        response = self.client.delete(f"{self.url}1/")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        
+    def test_put_curso(self):
+        """Testa se a atualização de um curso retorna o status code 200 OK."""
+        data = {
+            "codigo": "CS101",
+            "descricao": "Curso de Teste Atualizado",
+            "nivel": "B"
+        }
+        response = self.client.put(f"{self.url}1/", data=data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Curso.objects.get(pk=1).descricao, "Curso de Teste Atualizado")
