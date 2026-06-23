@@ -175,3 +175,5 @@ cython_debug/
 
 # ignore folder database
 data 
+meu_banco_utf8.json
+meu_banco.json
