@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate
 from django.urls import reverse
 from rest_framework import status
 from escola.models import Curso
+from escola.serializers import CursoSerializer
 
 
 class CursosTestCase(APITestCase):
@@ -22,3 +23,23 @@ class CursosTestCase(APITestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data["results"]), 1)
+    
+    def test_listar_um_curso(self):
+        """Testa se a listagem de um curso específico retorna o status code 200 OK."""
+        response = self.client.get(self.url+'1/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        dados_curso = Curso.objects.get(pk=1)
+        dados_serializados = CursoSerializer(instance=dados_curso).data
+        self.assertEqual(response.data, dados_serializados)
+    
+    def test_post_curso(self):
+        """Testa se a criação de um curso retorna o status code 201 Created."""
+        data = {
+            "codigo": "CS102",
+            "descricao": "Curso de Teste",
+            "nivel": "B"
+        }
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Curso.objects.count(), 2)
+        self.assertEqual(Curso.objects.get(pk=2).codigo, "CS102")
